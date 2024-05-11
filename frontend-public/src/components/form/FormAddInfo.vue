@@ -1,5 +1,5 @@
 <template>
-    <section class=" flex flex-col gap-9 w-2/3">
+    <section class=" flex flex-col gap-9 w-2/3 ps-5">
         <h1 class="font-semibold text-5xl w-5/6">
             Додати інформацію про знайденого
         </h1>

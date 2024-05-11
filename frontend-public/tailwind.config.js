@@ -7,7 +7,7 @@ export default {
         ubuntu: ['Ubuntu', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
-        backdrop: '#f5f5f5',
+        backdrop: '#f2f2f2',
       },
     },
   },
