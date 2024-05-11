@@ -1,0 +1,10 @@
+.venv
+photos
+data.photos
+cloud_credentials.json
+services/__pycache__
+in-search
+data.pt
+image.jpg
+new_wanted.jpg
+.env
