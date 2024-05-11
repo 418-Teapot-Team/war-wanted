@@ -20,11 +20,11 @@ services:
     volumes:
       - .:/app
   ml:
-    image: ml_models
+    image: ai
     environment:
       - CLOUD_CREDS=${CLOUD_CREDS}
     build:
-      context: ml_models
+      context: ai
       args:
         - DOCKER_BUILDKIT=1
       dockerfile: Dockerfile
