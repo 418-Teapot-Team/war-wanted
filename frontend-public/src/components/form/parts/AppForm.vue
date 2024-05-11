@@ -27,7 +27,7 @@
             </div>
             <div class="border-b border-gray-800 bg-transparent flex justify-between h-9">
                 <input type="text" placeholder="Місце" class="flex-auto w-full h-full bg-transparent">
-                <button @click="openMap" class=" w-full h-full bg-transparent w-9">
+                <button @click="openMap" class="  h-full bg-transparent w-9">
                     <img src="/images/map.png" alt="" class="w-full h-full object-contain">
                 </button>
             </div>
