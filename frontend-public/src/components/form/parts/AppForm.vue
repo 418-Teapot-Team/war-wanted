@@ -27,7 +27,7 @@
             </div>
             <div class="border-b border-gray-800 bg-transparent flex justify-between h-9">
                 <input type="text" placeholder="Місце" class="flex-auto w-full h-full bg-transparent">
-                <button @click="openMap" class=" w-full h-full bg-transparent">
+                <button @click="openMap" class=" w-full h-full bg-transparent w-9">
                     <img src="/images/map.png" alt="" class="w-full h-full object-contain">
                 </button>
             </div>
@@ -58,92 +58,6 @@ const openMap = () => {
     console.log("map is opened");
 }
 
-// const inputs = ref([
-//     {
-//         "type": "text",
-//         "label": "Ім'я",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Прізвище",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "По батькові",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Вік",
-//         "icon": "",
-//         "validateFunction": "validateAge",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Зріст",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Колір волосся",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Колір очей",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Час",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Місце",
-//         "icon": "/images/map.png",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Стать",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Стан",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Зовнішній вигляд",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "text",
-//         "label": "Особливі характеристики",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-//     {
-//         "type": "textarea",
-//         "label": "Опис ...",
-//         "icon": "",
-//         "validateFunction": "",
-//     },
-// ])
 </script>
 
 <style lang="scss" scoped></style>
