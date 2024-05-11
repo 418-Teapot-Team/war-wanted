@@ -1,5 +1,5 @@
 <template>
-    <AppPhotoInput />
+    <AppPhotoInput class="w-1/2" />
 </template>
 
 <script setup>

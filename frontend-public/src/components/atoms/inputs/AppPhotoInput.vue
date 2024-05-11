@@ -1,24 +1,19 @@
 <template>
-    <div class="bg-black/20 z-10 fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center"
-        @click="closeModal">
-        <div class="w-[320px] sm:w-[380px] md:w-[460px] lg:w-[620px] text-center shadow-sm bg-gray-100 border border-black/20 px-16 pt-16 pb-8 relative flex flex-col justify-center items-center gap-y-8"
-            @click.stop>
-            <div @click="closeModal" class="absolute right-4 top-4 cursor-pointer hover:stroke-primary">
+    <div class="bg-gray-100 p-8 shadow-md">
+        <div class=" text-center">
+            <div class="absolute right-4 top-4 cursor-pointer hover:stroke-primary" @click="closeModal">
                 <CloseIcon class="w-8 h-8" />
             </div>
-            <div v-if="!files.length"
-                class="border border-dashed border-primary min-h-44 flex justify-center items-center w-full"
-                @dragover="dragover" @dragleave="dragleave" @drop="drop">
+            <div v-if="!files.length">
                 <input type="file" multiple name="file" id="fileInput"
                     class="opacity-0 overflow-hidden absolute w-px h-px" @change="onChange" ref="file"
                     accept=".jpg,.jpeg,.png,.webp" />
-
                 <label for="fileInput" class="text-xl block cursor-pointer">
                     <div v-if="isDragging">Release to drop files here.</div>
                     <div v-else>Drop files here or <u class="text-primary">click here</u> to upload.</div>
                 </label>
             </div>
-            <div class="flex justify-center items-center mt-8" v-if="files.length">
+            <div v-if="files.length" class="flex justify-center items-center mt-8">
                 <div v-for="file in files" :key="file.name"
                     class="flex relative pt-10 px-12 pb-4 border border-black/20">
                     <div @click="remove" class="absolute right-0 top-0 cursor-pointer hover:stroke-primary">
@@ -32,9 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full flex justify-center items-center">
-                <AppButton type="bUtton" @on-click="upload" text="Завантажити" is-bold />
-            </div>
+
         </div>
     </div>
 </template>
@@ -92,8 +85,11 @@ function closeModal() {
 }
 
 function upload() {
+    console.log(files.value[0])
     if (files.value.length) {
         emit('onUpload', files.value[0]);
     }
 }
 </script>
+
+<style lang="scss" scoped></style>
