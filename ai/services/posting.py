@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 import dspy
 import os
 from dspy import GROQ
+from transformers import BertTokenizer, BertModel
+from scipy.spatial.distance import cosine
 
 load_dotenv()
 
@@ -106,18 +108,36 @@ def add_wanted():
 
 @posting_bp.route("/find_similar", methods=["POST"])
 def find_similar():
-    model = dspy.GROQ(model="llama3-70b-8192", api_key=os.environ.get("GROQ_API_KEY"))
-    dspy.settings.configure(lm=model)
     data = request.get_json()
-    question = "First description: " + str(data["search"]) + " Second description: " + str(data["available"])
-    prompt = """You will be provided 2 descriptions of human in JSON format. 
-        Each key has array of its value and coefficient how important the difference in value is\
-            Coefficient is from 0 to 1 where 1 being very important and 0 not important.\
-            Your output must be persentage how similar these descriptions are\
-                based on provided categories.
-                RETURN ONLY NUMBER \n"""
-    # Run with the default LM configured with `dspy.configure` above.
-    response = model(prompt=prompt + question)
-    print(response[0])
-    return jsonify(response[0]),200
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    model = BertModel.from_pretrained('bert-base-uncased')
+    search_person = data["search"]
+    available_person = data["available"]
+    distance = 0
+    for keys in search_person:
+
+        if keys not in available_person.keys():
+            continue
+
+        word1 = search_person[keys][0]
+        word2 = available_person[keys]
+        print(word1)
+        print(word2)
+
+        word1_tokens = tokenizer(word1, return_tensors='pt')
+        word2_tokens = tokenizer(word2, return_tensors='pt')
+
+        # Get BERT embeddings
+        with torch.no_grad():
+            word1_outputs = model(**word1_tokens)
+            word2_outputs = model(**word2_tokens)
+
+        # Extract the embeddings
+        word1_embedding = word1_outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
+        word2_embedding = word2_outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
+
+        print(cosine(word1_embedding, word2_embedding))
+        # Compute distances
+        distance += cosine(word1_embedding, word2_embedding) * search_person[keys][1]
+    return jsonify(distance),200
 
