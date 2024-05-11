@@ -32,9 +32,8 @@ def search():
     filepath = "found/" + filename
     image_to_search = "./image.jpg"
     download_file(filepath=filepath,destiny=image_to_search)
-
     filename = "data.pt"
-    filepath = "in-search/" + filename
+    filepath = filename
     embeddings = 'data.pt'
     download_file(filepath=filepath, destiny=embeddings)
 
@@ -67,18 +66,21 @@ def search():
 @posting_bp.route("/add_wanted", methods=["POST"])
 def add_wanted():
     filename = "data.pt"
-    filepath = "in-search/" + filename
+    filepath = filename
     embeddings = 'data.pt'
     download_file(filepath=filepath, destiny=embeddings)
+    print("downloaded data")
 
     existing_data = torch.load(embeddings)
     embedding_list, name_list = existing_data
-    
     data = request.get_json()
-    image_path = "in-search/" + data["folder"] + "/" + data["image"]
+    print(data["folder"])
+    print(data["image"])
+    image_path = "in-search/" + data["folder"] + "/" + data["image"]+".jpg"
     image_embedding = "new_wanted.jpg"
     download_file(filepath=image_path, destiny=image_embedding)
-
+    print("downloaded image")
+    image_embedding = Image.open(image_embedding)
     mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) 
     resnet = InceptionResnetV1(pretrained='vggface2').eval()
 
@@ -90,5 +92,6 @@ def add_wanted():
         name_list.append(data["folder"])
     data = [embedding_list, name_list]
     torch.save(data, 'data.pt')
-    blob_name = f"in-search/data.pt"
+    blob_name = "data.pt"
     upload_file(blob_name, "data.pt")
+    return jsonify(message="Successfully added"),200

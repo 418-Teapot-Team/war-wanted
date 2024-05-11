@@ -7,14 +7,32 @@ from torch.utils.data import DataLoader
 from PIL import Image
 from google.cloud import storage
 from services import api_bp
+from pathlib import Path
 
+
+def download_dataset():
+    bucketname = 'dataface-hackaton'
+    prefix = 'in-search/'
+    dl_dir = './in-search'
+
+    storage_client = storage.Client.from_service_account_json("cloud_credentials.json")
+    bucket = storage_client.get_bucket(bucketname)
+    blobs = bucket.list_blobs(prefix=prefix)  # Get list of files
+    for blob in blobs:
+        if blob.name.endswith("/"):
+            continue
+        file_split = blob.name.split("/")
+        directory = "/".join(file_split[0:-1])
+        Path(directory).mkdir(parents=True, exist_ok=True)
+        blob.download_to_filename(blob.name) 
 
 def initialize_embeddings():
     mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) 
     resnet = InceptionResnetV1(pretrained='vggface2').eval() 
 
     # TODO: DOWNLOAD FOLDERS WITH WANTED PEOPLE ID AND IMAGES
-    dataset=datasets.ImageFolder('../data/photos') 
+    download_dataset()
+    dataset=datasets.ImageFolder('./in-search') 
     idx_to_class = {i:c for c,i in dataset.class_to_idx.items()} 
 
     def collate_fn(x):
@@ -39,7 +57,7 @@ def initialize_embeddings():
     bucketname = "dataface-hackaton"
 
     bucket = storage_client.get_bucket(bucketname)
-    blob_name = 'in-search/' + 'data.pt'
+    blob_name = 'data.pt'
     blob = bucket.blob(blob_name)
 
     blob.upload_from_filename('data.pt')
