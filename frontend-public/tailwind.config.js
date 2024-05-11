@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         backdrop: '#f5f5f5',
+        green: '#444F2D',
       },
     },
   },
