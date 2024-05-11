@@ -11,6 +11,6 @@ COPY . /app
 # write cloud credentials to file
 RUN echo $CLOUD_CREDS > cloud_credentials.json
 
-EXPOSE 8001
+EXPOSE 8002
 
-CMD ["flask", "--app=backend/app.py", "run", "--host=0.0.0.0", "--port=8001"]
+CMD ["flask", "--app=backend/app.py", "run", "--host=0.0.0.0", "--port=8002"]
