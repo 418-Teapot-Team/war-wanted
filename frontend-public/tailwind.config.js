@@ -7,11 +7,7 @@ export default {
         ubuntu: ['Ubuntu', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
-        backdrop: '#f1faee',
-        primary: '#457b9d',
-        'primary-dark': '#1d3557',
-        'primary-light': '#a8dadc',
-        error: '#e63946',
+        backdrop: '#f5f5f5',
       },
     },
   },
