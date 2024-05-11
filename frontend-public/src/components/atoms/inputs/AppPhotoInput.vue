@@ -1,9 +1,6 @@
 <template>
     <div class="bg-gray-100 p-8 shadow-md">
         <div class=" text-center">
-            <div class="absolute right-4 top-4 cursor-pointer hover:stroke-primary" @click="closeModal">
-                <CloseIcon class="w-8 h-8" />
-            </div>
             <div v-if="!files.length">
                 <input type="file" multiple name="file" id="fileInput"
                     class="opacity-0 overflow-hidden absolute w-px h-px" @change="onChange" ref="file"
@@ -13,20 +10,23 @@
                     <div v-else>Drop files here or <u class="text-primary">click here</u> to upload.</div>
                 </label>
             </div>
-            <div v-if="files.length" class="flex justify-center items-center mt-8">
+            <div v-if="files.length" class="flex flex-col gap-2 justify-center items-center mt-8">
                 <div v-for="file in files" :key="file.name"
-                    class="flex relative pt-10 px-12 pb-4 border border-black/20">
-                    <div @click="remove" class="absolute right-0 top-0 cursor-pointer hover:stroke-primary">
+                    class="flex relative py-3 border border-black/20 rounded-md w-full h-full justify-center">
+                    <!-- CLOSE BUTTON -->
+                    <!-- <div @click="remove" class="absolute right-0 top-0 cursor-pointer hover:stroke-primary">
                         <CloseIcon class="w-8 h-8" />
-                    </div>
+                    </div> -->
                     <div>
-                        <img class="w-24 h-24 rounded bg-gray-500" :src="generateThumbnail(file)" />
-                        <p :title="file.name">
-                            {{ makeName(file.name) }}
-                        </p>
+                        <img class="rounded bg-gray-500" :src="generateThumbnail(file)" />
+
                     </div>
                 </div>
+                <div @click="remove" class="cursor-pointer hover:stroke-primary">
+                    <CloseIcon colorProp="red" class="w-8 h-8" />
+                </div>
             </div>
+
 
         </div>
     </div>
