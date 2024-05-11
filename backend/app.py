@@ -4,8 +4,9 @@ from flask_jwt_extended import JWTManager
 
 from config import Config
 
-# from db import db, migrate
-# from db import models  # noqa
+from db import db, migrate
+from db import models  # noqa
+
 # from services import api_bp
 
 
@@ -17,15 +18,13 @@ def create_app():
     app.config["SECRET_KEY"] = Config.SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = Config.db.uri
 
-    # db.init_app(app)
-    # migrate.init_app(app, db)
-
-    # app.config["CORS_HEADERS"] = "Content-Type"
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     # app.register_blueprint(api_bp)
-    #
-    # with app.app_context():
-    #     db.create_all()
+
+    with app.app_context():
+        db.create_all()
 
     print(app.url_map)
 
