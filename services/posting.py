@@ -106,30 +106,18 @@ def add_wanted():
 
 @posting_bp.route("/find_similar", methods=["POST"])
 def find_similar():
-    
-    class GenerateAnswer(dspy.Signature):
-        """You will be provided 2 descriptions of human in JSON format. 
-        Each key has array of its value and coefficient how important the difference is\
-            from 0 to 1 where 1 being very important and 0 not important\
-            Your output must be persentage how similar these descriptions are\
-                based on provided categories.
-                RETURN ONLY NUMBER"""
-
-        question = dspy.InputField()
-
-        answer = dspy.OutputField(
-            desc="Output must be single number of percentage how similar provided descriptions are. RETURN ONLY NUMBER"
-        )
-
     model = dspy.GROQ(model="llama3-70b-8192", api_key=os.environ.get("GROQ_API_KEY"))
     dspy.settings.configure(lm=model)
-    cot = dspy.ChainOfThought(GenerateAnswer)
     data = request.get_json()
     question = "First description: " + str(data["search"]) + " Second description: " + str(data["available"])
-    qa = dspy.ChainOfThought(GenerateAnswer)
-
+    prompt = """You will be provided 2 descriptions of human in JSON format. 
+        Each key has array of its value and coefficient how important the difference in value is\
+            Coefficient is from 0 to 1 where 1 being very important and 0 not important.\
+            Your output must be persentage how similar these descriptions are\
+                based on provided categories.
+                RETURN ONLY NUMBER \n"""
     # Run with the default LM configured with `dspy.configure` above.
-    response = qa(question=question)
-    print(response.answer)
-    return jsonify(response.answer),200
+    response = model(prompt=prompt + question)
+    print(response[0])
+    return jsonify(response[0]),200
 
