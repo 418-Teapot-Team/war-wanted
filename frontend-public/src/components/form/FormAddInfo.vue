@@ -1,7 +1,10 @@
 <template>
-    <section class="w-2/3">
+    <section class=" flex flex-col gap-9 w-2/3">
+        <h1 class="font-semibold text-5xl w-5/6">
+            Додати інформацію про знайденого
+        </h1>
         <AppForm />
-        
+
     </section>
 </template>
 
