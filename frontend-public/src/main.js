@@ -10,6 +10,7 @@ import VeeValidatePlugin from '@/includes/validation';
 import Toast from '@/includes/toast';
 import VueSelect from '@/includes/v-select';
 import Maska from '@/includes/maska';
+import 'flowbite';
 
 const app = createApp(App);
 

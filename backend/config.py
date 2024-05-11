@@ -10,6 +10,7 @@ load_dotenv(dotenv_path)
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
+    GCP_BUCKET = "dataface-hackaton"
 
     class db:
         user = os.getenv("DB_USER")

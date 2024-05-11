@@ -45,3 +45,6 @@ Thumbs.db
 
 # Environment configuration files
 .env
+
+# google credentials
+cloud_credentials.json
