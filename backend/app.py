@@ -1,0 +1,36 @@
+from flask import Flask
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+
+from config import Config
+
+from db import db, migrate
+from db import models  # noqa
+
+# from services import api_bp
+
+
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+    JWTManager(app)
+
+    app.config["SECRET_KEY"] = Config.SECRET_KEY
+    app.config["SQLALCHEMY_DATABASE_URI"] = Config.db.uri
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    # app.register_blueprint(api_bp)
+
+    with app.app_context():
+        db.create_all()
+
+    print(app.url_map)
+
+    return app
+
+
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=True, port=8003)
