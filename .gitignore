@@ -1,0 +1,47 @@
+# Python-specific ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Flask specific ignores
+instance/
+
+# Vue.js specific ignores
+/node_modules/
+npm-debug.log
+
+# Vue.js build output
+/dist/
+/build/
+
+# Log files
+*.log
+
+# Compiled files
+*.class
+*.war
+*.ear
+*.jar
+
+# Package files
+*.exe
+*.dmg
+*.pkg
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Environment configuration files
+.env
