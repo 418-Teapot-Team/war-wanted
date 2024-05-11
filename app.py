@@ -1,6 +1,48 @@
 from flask import Flask
 from flask_cors import CORS
+from facenet_pytorch import MTCNN, InceptionResnetV1
+import torch
+from torchvision import datasets
+from torch.utils.data import DataLoader
+from PIL import Image
+from google.cloud import storage
 from services import api_bp
+
+
+def initialize_embeddings():
+    mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) 
+    resnet = InceptionResnetV1(pretrained='vggface2').eval() 
+
+    # TODO: DOWNLOAD FOLDERS WITH WANTED PEOPLE ID AND IMAGES
+    dataset=datasets.ImageFolder('../data/photos') 
+    idx_to_class = {i:c for c,i in dataset.class_to_idx.items()} 
+
+    def collate_fn(x):
+        return x[0]
+
+    loader = DataLoader(dataset, collate_fn=collate_fn)
+
+    face_list = [] # list of cropped faces from photos folder
+    name_list = [] # list of names corrospoing to cropped photos
+    embedding_list = [] # list of embeding matrix after conversion from cropped faces to embedding matrix using resnet
+
+    for img, idx in loader:
+        face, prob = mtcnn(img, return_prob=True) 
+        if face is not None and prob>0.90: # if face detected and porbability > 90%
+            emb = resnet(face.unsqueeze(0)) # passing cropped face into resnet model to get embedding matrix
+            embedding_list.append(emb.detach()) # resulten embedding matrix is stored in a list
+            name_list.append(idx_to_class[idx]) # names are stored in a list
+    data = [embedding_list, name_list]
+    torch.save(data, 'data.pt') # saving data.pt file
+
+    storage_client = storage.Client.from_service_account_json("cloud_credentials.json")
+    bucketname = "dataface-hackaton"
+
+    bucket = storage_client.get_bucket(bucketname)
+    blob_name = 'in-search/' + 'data.pt'
+    blob = bucket.blob(blob_name)
+
+    blob.upload_from_filename('data.pt')
 
 
 def create_app():
@@ -8,7 +50,7 @@ def create_app():
     CORS(app)
 
     app.register_blueprint(api_bp)
-
+    initialize_embeddings()
     print(app.url_map)
 
     return app
