@@ -83,8 +83,7 @@
 <script setup>
 import { ref } from 'vue';
 import DoubleArrowDown from '@/components/icons/DoubleArrowDown.vue';
-import PlaceInput from '../../atoms/inputs/AppPlaceInput.vue';
-import AppPhotoInput from '@/components/atoms/inputs/AppPhotoInput.vue';
+
 const person_state = ref('');
 const add_more_info = ref(false);
 
