@@ -18,6 +18,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/details',
+      name: 'details',
+      component: () => import('@/views/DetailsView.vue'),
+    },
+    {
       path: '/404',
       name: 'not_found',
       component: () => import('@/views/ErrorView.vue'),

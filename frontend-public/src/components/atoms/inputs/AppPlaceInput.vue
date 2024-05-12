@@ -3,14 +3,14 @@
     <div class="border-b-2 border-black flex justify-end items-center">
       <vue-google-autocomplete
         id="place"
-        class="w-full bg-transparent placeholder-green placeholder-opacity-[92%]"
+        class="w-full bg-transparent"
         placeholder="Місце"
         v-on:placechanged="getAddressData"
         country="ua"
         :value="markerData"
       ></vue-google-autocomplete>
       <button @click="toggleMap">
-        <img class="w-8 h-8 pb-1" src="/images/map.png" alt="" />
+        <img class="w-7 h-7 pb-1" src="/images/map.png" alt="" />
       </button>
     </div>
 

@@ -13,10 +13,6 @@
             <div v-if="files.length" class="flex flex-col gap-2 justify-center items-center mt-8">
                 <div v-for="file in files" :key="file.name"
                     class="flex relative py-3 border border-black/20 rounded-md w-full h-full justify-center">
-                    <!-- CLOSE BUTTON -->
-                    <!-- <div @click="remove" class="absolute right-0 top-0 cursor-pointer hover:stroke-primary">
-                        <CloseIcon class="w-8 h-8" />
-                    </div> -->
                     <div>
                         <img class="rounded bg-gray-500" :src="generateThumbnail(file)" />
 
