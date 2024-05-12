@@ -2,8 +2,10 @@
   <div
     class="fixed top-0 left-0 right-0 bottom-0 z-10 bg-black/20 flex justify-center items-center max-h-screen overflow-y-auto"
   >
-    <div class="bg-backdrop w-[1100px] h-[550px] m-10 overflow-y-auto">
-      <button class="right-0" @click="closeModal">X</button>
+    <div class="bg-backdrop w-[1100px] h-[550px] m-10 overflow-y-auto relative">
+      <button class="absolute right-2 top-2" @click="closeModal">
+        <CloseIcon class="w-4 h-4" />
+      </button>
       <div
         class="flex flex-col items-center md:items-start gap-y-10 md:gap-y-0 md:flex-row px-10 py-2 gap-x-10 xl:gap-x-20"
       >
@@ -75,6 +77,7 @@ import { useModalStore } from '@/components/stores/matchesModal';
 import PhoneIcon from '@/components/icons/PhoneIcon.vue';
 import LocationIcon from '@/components/icons/LocationIcon.vue';
 import FoundMap from '../atoms/map/FoundMap.vue';
+import CloseIcon from '../icons/CloseIcon.vue';
 
 const modalStore = useModalStore();
 
