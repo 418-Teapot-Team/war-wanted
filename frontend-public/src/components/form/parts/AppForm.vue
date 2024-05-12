@@ -34,7 +34,8 @@
       <div class="flex justify-center mt-5">
         <!-- TODO: захуячити переливання -->
         <button
-          class="rounded-md bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-colors duration-300 ease-in-out">
+          class="rounded-md bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-colors duration-300 ease-in-out"
+          @click="sendData">
           Відправити
         </button>
       </div>
@@ -54,16 +55,22 @@ import AppPhoneInput from '@/components/atoms/inputs/AppPhoneInput.vue';
 import PlaceInput from '../../atoms/inputs/AppPlaceInput.vue';
 import AppPhotoInput from '@/components/atoms/inputs/AppPhotoInput.vue';
 import AppTimeInput from '@/components/atoms/inputs/AppTimeInput.vue';
-import AppButton from '@/components/atoms/buttons/AppButton.vue';
+import { useFoundData } from '@/stores/foundData';
+
+const foundDataStore = useFoundData();
 
 const add_more_info = ref(false);
+
+const state = ref(null);
+const gender = ref(null);
+
+const sendData = () => {
+  foundDataStore.postFoundData();
+}
 
 const toggle_more_info = () => {
   add_more_info.value = !add_more_info.value;
 };
-
-const state = ref(null);
-const gender = ref(null);
 
 const genders = ref([
   {
