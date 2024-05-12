@@ -13,8 +13,8 @@
         <AppSelectInput v-model="state" label="Оберіть стан" dataKey="id" :options="states" />
       </div>
       <div class="flex justify-center">
-        <button class="p-3" @click="toggle_more_info">
-          <DoubleArrowDown />
+        <button class="p-3 flex flex-row" @click="toggle_more_info">
+          <DoubleArrowDown /> <span>Додати інформацію</span> <DoubleArrowDown />
         </button>
       </div>
       <div v-if="add_more_info" class="grid grid-rows-7 sm:grid-flow-col gap-y-6 gap-x-6">
@@ -38,19 +38,22 @@
           ></textarea>
         </div>
       </div>
-      <div class="flex justify-center mt-5">
-        <!-- TODO: захуячити переливання -->
-        <button
-          class="rounded-md bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-colors duration-300 ease-in-out"
-          @click="sendData">
-          Відправити
-        </button>
-      </div>
     </div>
     <div class="col-span-4 lg:col-span-2 hidden lg:block">
       <AppPhotoInput />
     </div>
   </section>
+  <div class="flex justify-center">
+    <button
+      class="px-6 h-10 flex justify-center items-center rounded-full bg-black text-white hover:shadow-sm"
+      @click="sendData"
+      ref="el"
+      @mouseenter="startAnimation"
+      @mouseleave="stopAnimation"
+    >
+      Відправити
+    </button>
+  </div>
 </template>
 
 <script setup>
@@ -73,7 +76,7 @@ const gender = ref(null);
 
 const sendData = () => {
   foundDataStore.postFoundData();
-}
+};
 
 const toggle_more_info = () => {
   add_more_info.value = !add_more_info.value;
@@ -103,6 +106,53 @@ const states = ref([
     id: 'captured',
   },
 ]);
+const el = ref(null);
+
+function startAnimation() {
+  el.value.classList.add('animate-gradient');
+}
+
+function stopAnimation() {
+  el.value.classList.remove('animate-gradient');
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.animate-gradient {
+  background-image: linear-gradient(
+    90deg,
+    #244132,
+    #295236,
+    #2f5c3a,
+    #34653e,
+    #3a6e42,
+    #407747,
+    #46804b,
+    #4c8950,
+    #528254,
+    #578c58,
+    #5d955c
+  );
+  background-size: 400% 400%;
+  animation: gradient 5s infinite linear; /* cubic-bezier easing */
+}
+
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  20% {
+    background-position: 20% 50%;
+  }
+  40% {
+    background-position: 40% 50%;
+  }
+  60% {
+    background-position: 60% 50%;
+  }
+  80% {
+    background-position: 80% 50%;
+  }
+}
+</style>
