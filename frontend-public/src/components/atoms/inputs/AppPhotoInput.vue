@@ -38,6 +38,40 @@ function onChange() {
     files.value = [file.value.files[0]];
 }
 
+// не чіпай, тут приклад як конвертувати в байт арей, мені ше треба
+const checkImageType = () => {
+    console.log(typeof (files.value[0]))
+    console.log(files.value[0])
+
+    fileToByteArray(files.value[0])
+        .then(byteArray => {
+            console.log("Byte array:", byteArray);
+            // You can use the byte array here
+        })
+        .catch(error => {
+            console.error("Error converting file to byte array:", error);
+        });
+}
+
+// Assuming 'file' is your file object
+function fileToByteArray(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            const arrayBuffer = this.result;
+            const byteArray = new Uint8Array(arrayBuffer);
+            resolve(byteArray);
+        };
+
+        reader.onerror = function (error) {
+            reject(error);
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+}
+
 function generateThumbnail(file) {
     let fileSrc = URL.createObjectURL(file);
     setTimeout(() => {

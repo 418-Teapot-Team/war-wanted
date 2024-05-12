@@ -31,6 +31,13 @@
             class="border-[2px] border-black flex-auto w-full h-[100px] bg-transparent focus:border-transparent focus:ring-0"></textarea>
         </div>
       </div>
+      <div class="flex justify-center mt-5">
+        <!-- TODO: захуячити переливання -->
+        <button
+          class="rounded-md bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-colors duration-300 ease-in-out">
+          Відправити
+        </button>
+      </div>
     </div>
     <div class="col-span-4 lg:col-span-2">
       <AppPhotoInput />
@@ -47,6 +54,7 @@ import AppPhoneInput from '@/components/atoms/inputs/AppPhoneInput.vue';
 import PlaceInput from '../../atoms/inputs/AppPlaceInput.vue';
 import AppPhotoInput from '@/components/atoms/inputs/AppPhotoInput.vue';
 import AppTimeInput from '@/components/atoms/inputs/AppTimeInput.vue';
+import AppButton from '@/components/atoms/buttons/AppButton.vue';
 
 const add_more_info = ref(false);
 
