@@ -9,6 +9,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PSWD=${DB_PSWD}
       - SECRET_KEY=${SECRET_KEY}
+      - CLOUD_CREDS=${CLOUD_CREDS}
     build:
       context: backend
       args:
@@ -16,6 +17,19 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8001:8001
+    volumes:
+      - .:/app
+  ml:
+    image: ai
+    environment:
+      - CLOUD_CREDS=${CLOUD_CREDS}
+    build:
+      context: ai
+      args:
+        - DOCKER_BUILDKIT=1
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
     volumes:
       - .:/app
   frontend:
