@@ -1,26 +1,9 @@
 import axios from 'axios';
-import { AUTH_TOKEN_KEY } from '@/utils/constants';
 
 const headers = {
   Accept: 'application/json',
-  'Content-Type': 'application/json; charset=utf-8',
   'X-Requested-With': 'XMLHttpRequest',
-  // 'Access-Control-Allow-Credentials': true,
-};
-
-const injectToken = (config) => {
-  try {
-    const token = localStorage.getItem(AUTH_TOKEN_KEY);
-    if (token !== null) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  } catch (error) {
-    throw new Error(error);
-  } finally {
-    // eslint-disable-next-line no-unsafe-finally
-    return config;
-  }
+  // Remove 'Content-Type' header to let Axios handle it automatically
 };
 
 class HttpClient {
@@ -32,11 +15,10 @@ class HttpClient {
 
   initHttpClient() {
     const http = axios.create({
+      // Provide your base API URL here
       baseURL: import.meta.env.VITE_BASE_API,
       headers,
-      // withCredentials: true,
     });
-    http.interceptors.request.use(injectToken, (error) => Promise.reject(error));
 
     http.interceptors.response.use(
       (response) => response,
@@ -54,10 +36,7 @@ class HttpClient {
       message: error?.response?.data?.message ? error?.response?.data?.message : error.message,
       status: error.statusText,
     };
-    console.log(error);
-    if (error.response?.status === 403 || error.response?.status === 401) {
-      localStorage.removeItem(AUTH_TOKEN_KEY);
-    }
+    console.error(error);
     return Promise.reject(errorData);
   }
 
@@ -70,11 +49,21 @@ class HttpClient {
   }
 
   post(url, data, config) {
-    return this.httpClient.post(url, data, config);
+    const formData = new FormData();
+    // Append each key-value pair from the data object to the FormData object
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    // If config is provided, merge headers, etc.
+    return this.httpClient.post(url, formData, config);
   }
 
   put(url, data, config) {
-    return this.httpClient.put(url, data, config);
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    return this.httpClient.put(url, formData, config);
   }
 
   delete(url, config) {
