@@ -28,6 +28,9 @@
 <script setup>
 import { ref } from 'vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
+import { useFoundData } from '@/stores/foundData';
+
+const store = useFoundData()
 
 const isDragging = ref(false);
 const files = ref([]);
@@ -36,10 +39,11 @@ const file = ref(null);
 
 function onChange() {
     files.value = [file.value.files[0]];
+    setImage()
 }
 
-// не чіпай, тут приклад як конвертувати в байт арей, мені ше треба
-const checkImageType = () => {
+
+const setImage = () => {
     console.log(typeof (files.value[0]))
     console.log(files.value[0])
 
@@ -47,10 +51,13 @@ const checkImageType = () => {
         .then(byteArray => {
             console.log("Byte array:", byteArray);
             // You can use the byte array here
+            store.image = byteArray;
         })
         .catch(error => {
             console.error("Error converting file to byte array:", error);
         });
+
+
 }
 
 // Assuming 'file' is your file object
