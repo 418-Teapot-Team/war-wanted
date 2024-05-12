@@ -8,7 +8,15 @@
     >
     <div class="flex justify-start flex-col sm:flex-row items-center w-full gap-x-4">
       <div class="flex justify-center items-center">
-        <img :src="data?.image ? data.image : '/images/Thumb.jpeg'" width="214" height="214" />
+        <img
+          :src="
+            data?.image_path
+              ? 'https://storage.googleapis.com/dataface-hackaton/' + data.image_path
+              : '/images/Thumb.jpeg'
+          "
+          width="214"
+          height="214"
+        />
       </div>
       <div
         class="flex flex-col justify-start items-center sm:items-start gap-y-2 sm:gap-y-0.5 w-full"
