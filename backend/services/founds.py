@@ -26,6 +26,9 @@ def add_found_person():
     # get image by key "image" from form-data
     image = request.files.get("image")
 
+    date = data.get("found_date")
+    parsed_date = datetime.strptime(date, "%Y-%m-%d %H:%M")
+
     person_id = uuid.uuid4()
     found_person = FoundPerson(
         id=person_id,
@@ -43,6 +46,7 @@ def add_found_person():
         found_by_number=data.get("found_by_number"),
         condition=data.get("condition"),
         appearence=data.get("appearence"),
+        found_date=parsed_date,
     )
 
     if image:
