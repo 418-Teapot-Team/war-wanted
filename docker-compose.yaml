@@ -39,3 +39,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3001:3001
+  frontend-public:
+    image: frontend-public
+    build:
+      context: frontend-public
+      dockerfile: Dockerfile
+    ports:
+      - 3003:3003
