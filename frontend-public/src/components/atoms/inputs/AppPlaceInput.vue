@@ -30,6 +30,9 @@
 import { ref } from 'vue';
 import { GoogleMap, Marker } from 'vue3-google-map';
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
+import { useFoundData } from '@/stores/foundData';
+
+const store = useFoundData()
 
 const center = ref({ lat: 49.8322405, lng: 23.99730411 });
 const isMapOpen = ref(false);
@@ -43,6 +46,8 @@ function toggleMap() {
 function placeMarker(event) {
   markerPosition.value = { lat: event.latLng.lat(), lng: event.latLng.lng() };
   markerData.value = `(${event.latLng.lat()}, ${event.latLng.lng()})`;
+  store.data["found_lat"] = `${event.latLng.lat()}`;
+  store.data["found_lon"] = `${event.latLng.lng()}`;
 }
 
 function getAddressData(place) {

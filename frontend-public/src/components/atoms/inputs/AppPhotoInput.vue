@@ -8,7 +8,7 @@
                 </label>
                 <input type="file" multiple name="file" id="fileInput"
                     class="opacity-0 overflow-hidden absolute w-px h-px" @change="onChange" ref="file"
-                    accept=".jpg,.jpeg,.png,.webp" />
+                    accept=".jpg,.jpeg" />
             </div>
             <div v-else class="flex flex-col gap-2 justify-center items-center mt-8">
                 <div v-for="file in files" :key="file.name"
@@ -38,6 +38,7 @@ const files = ref([]);
 const file = ref(null);
 
 function onChange() {
+    console.log('value changed');
     files.value = [file.value.files[0]];
     setImage()
 }
@@ -87,10 +88,6 @@ function generateThumbnail(file) {
     return fileSrc;
 }
 
-function makeName(name) {
-    return name.split('.')[0].substring(0, 3) + '...' + name.split('.')[name.split('.').length - 1];
-}
-
 function remove() {
     files.value = [];
 }
@@ -111,16 +108,6 @@ function drop(e) {
     files.value = Array.from(droppedFiles);
 }
 
-function closeModal() {
-    emit('closeModal');
-}
-
-function upload() {
-    console.log(files.value[0])
-    if (files.value.length) {
-        emit('onUpload', files.value[0]);
-    }
-}
 </script>
 
 <style lang="scss" scoped></style>
