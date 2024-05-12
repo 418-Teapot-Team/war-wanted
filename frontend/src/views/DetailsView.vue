@@ -15,7 +15,7 @@
       <span class="flex justify-start items-baseline gap-x-1"
         ><LocationIcon class="w-4 h-4" /><span>Avdiivka</span></span
       >
-      <FoundMap />
+      <FoundMap class="h-full" />
     </div>
     <div>
       <ul class="flex flex-col justify-start items-start gap-y-3">

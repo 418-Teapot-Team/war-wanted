@@ -4,8 +4,9 @@ from sqlalchemy.dialects.postgresql import UUID
 from db.models.base import db
 
 
-class FoundPerson(db.Model):
-    __tablename__ = "found_persons"
+class InSearchPerson(db.Model):
+
+    __tablename__ = "in_search_person"
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = db.Column(db.String(100), nullable=True)
@@ -23,9 +24,14 @@ class FoundPerson(db.Model):
     condition = db.Column(db.String(100), nullable=True)
     appearence = db.Column(db.Text(), nullable=True)
     gender = db.Column(db.String(10), nullable=True)
-    found_date = db.Column(db.DateTime, nullable=True)
+    posted_date = db.Column(db.DateTime, nullable=True)
     specific_signs = db.Column(db.Text(), nullable=True)
     image_path = db.Column(db.String(200), nullable=True)
+    relatives_phone = db.Column(db.String(20), nullable=True)
+    status = db.Column(db.String(20), nullable=True, default="in_search")
+
+    def set_image(self, image_path):
+        self.image_path = image_path
 
     def to_dict(self):
         return {
@@ -45,13 +51,12 @@ class FoundPerson(db.Model):
             "condition": self.condition,
             "appearence": self.appearence,
             "gender": self.gender,
-            "found_date": self.found_date,
+            "posted_date": self.posted_date,
             "specific_signs": self.specific_signs,
             "image_path": self.image_path,
+            "relatives_phone": self.relatives_phone,
+            "status": self.status,
         }
-
-    def set_image(self, image_path):
-        self.image_path = image_path
 
     def save_to_db(self):
         db.session.add(self)
