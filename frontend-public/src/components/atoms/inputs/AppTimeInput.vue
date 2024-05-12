@@ -19,11 +19,11 @@
         <div v-if="isDateTimePickerOpen" id="datetimePickerDropdown"
           class="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
           <!-- Date picker -->
-          <input type="date" class="block w-full px-4 py-2 border-b border-gray-300 focus:outline-none"
-            v-model="selectedDate">
+          <input @input="updateInfo" type="date"
+            class="block w-full px-4 py-2 border-b border-gray-300 focus:outline-none" v-model="tempSelectedDate">
 
           <!-- Time picker -->
-          <input type="time" class="block w-full px-4 py-2 focus:outline-none" v-model="selectedTime">
+          <input type="time" class="block w-full px-4 py-2 focus:outline-none" v-model="tempSelectedTime">
 
           <!-- Confirm button -->
           <button
@@ -41,9 +41,23 @@
 <script setup>
 import { ref } from 'vue';
 import DateTimeIcon from '@/components/icons/DateTimeIcon.vue';
+import { useFoundData } from '@/stores/foundData';
+
+const store = useFoundData()
+
+defineProps(['name', 'label', 'type']);
+
+const updateInfoDate = () => {
+  store.data['found_date'] = selectedDate.value + ' ' + selectedTime.value;
+  console.log(store.data['found_date']);
+}
 
 const selectedDate = ref('');
 const selectedTime = ref('');
+
+const tempSelectedDate = ref('');
+const tempSelectedTime = ref('');
+
 
 const isDateTimePickerOpen = ref(false);
 
@@ -53,8 +67,12 @@ function toggleDateTimePicker() {
 
 function confirmDateTime() {
   // Handle selectedDate and selectedTime values
+  selectedDate.value = tempSelectedDate.value;
+  selectedTime.value = tempSelectedTime.value;
   console.log('Selected Date:', selectedDate.value);
   console.log('Selected Time:', selectedTime.value);
+  updateInfoDate();
+  toggleDateTimePicker();
 }
 </script>
 
