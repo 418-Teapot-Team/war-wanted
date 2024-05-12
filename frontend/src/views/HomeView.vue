@@ -1,9 +1,22 @@
 <template>
-  <AppPlainInput />
-  <AppButton text="Hello World!" />
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+    <AppCard />
+  </div>
 </template>
 
 <script setup>
-import AppPlainInput from '@/components/atoms/inputs/AppPlainInput.vue';
-import AppButton from '@/components/atoms/buttons/AppButton.vue';
+import AppCard from '@/components/AppCard.vue';
 </script>
