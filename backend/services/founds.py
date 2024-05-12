@@ -56,7 +56,9 @@ def add_found_person():
 
     found_person.save_to_db()
 
-    matches = ml_models.match_found_person(str(person_id) + ".jpg")
+    matches = []
+    if image:
+        matches = ml_models.match_found_person(str(person_id) + ".jpg")
     # print(matches)
 
     # search_by_fields(found_person.to_dict())
