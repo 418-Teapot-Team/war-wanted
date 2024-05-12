@@ -12,7 +12,6 @@ import { onBeforeMount, ref } from 'vue';
 const store = useIndexStore();
 
 const data = ref([]);
-
 onBeforeMount(() => {
   store.fetchAll().then((res) => {
     data.value = res.result;
