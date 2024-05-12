@@ -10,9 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: create credentials file
-      run: |
-        echo "${{ secrets.CLOUD_CREDS }}" > backend/cloud_credentials.json
-        echo "${{ secrets.CLOUD_CREDS }}" > ai/cloud_credentials.json
+      run:
+        echo '${{ secrets.CLOUD_CREDS }}' > cloud_credentials.json
     - name: Docker Compose
       env:
         DB_HOST: ${{ secrets.DB_HOST }}
