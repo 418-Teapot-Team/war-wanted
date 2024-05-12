@@ -34,9 +34,19 @@ export const useIndexStore = defineStore('index', () => {
     }
   }
 
+  async function fetchPossible(id) {
+    try {
+      const res = await httpClient.get(BASE_API + `/matches/wanted/${id}`);
+      return res.data;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   return {
     login,
     fetchAll,
     fetch,
+    fetchPossible,
   };
 });

@@ -29,7 +29,7 @@ const router = createRouter({
       beforeEnter: isAuthenticated,
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: 'details',
       component: () => import('@/views/DetailsView.vue'),
       beforeEnter: isAuthenticated,
