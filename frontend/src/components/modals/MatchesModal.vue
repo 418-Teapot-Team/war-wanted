@@ -7,7 +7,7 @@
         <CloseIcon class="w-4 h-4" />
       </button>
       <div
-        class="flex flex-col items-center md:items-start gap-y-10 md:gap-y-0 md:flex-row px-10 py-2 gap-x-10 xl:gap-x-20"
+        class="flex flex-col items-center md:items-start gap-y-10 md:gap-y-0 md:flex-row px-10 py-5 gap-x-10 xl:gap-x-20"
       >
         <div>
           <div class="flex justify-center items-center max-h-[50svh] w-72">
