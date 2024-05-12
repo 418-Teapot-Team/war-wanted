@@ -1,5 +1,5 @@
 <template>
-  <section id="details" class="grid grid-cols-2 grid-rows-2 h-full w-full gap-8">
+  <section id="details" class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 h-full w-full gap-8">
     <div>
       <div class="flex justify-center items-center max-h-[50svh]">
         <img src="/images/Thumb.jpeg" class="w-full h-full object-contain" />
