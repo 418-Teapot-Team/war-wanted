@@ -7,7 +7,7 @@
       <span class="text-xs text-gray-600">{{ data.found_date }}</span></span
     >
     <div class="flex justify-start flex-col sm:flex-row items-center w-full gap-x-4">
-      <div class="flex justify-center items-center">
+      <div class="flex justify-center items-center min-h-[214px] max-h-[214px]">
         <img
           :src="
             data?.image_path
@@ -22,10 +22,10 @@
         class="flex flex-col justify-start items-center sm:items-start gap-y-2 sm:gap-y-0.5 w-full"
       >
         <span class="text-2xl font-semibold">{{ `${data.name} ${data.surname}` }}</span>
-        <span class="text-lg text-green-800">{{ data.conditon }}</span>
+        <span class="text-lg text-green-800">{{ data.condition }}</span>
 
         <span class="flex justify-start items-center gap-x-2"
-          ><PhoneIcon class="w-5 h-5" /><span>{{ data.found_by_phone }}</span></span
+          ><PhoneIcon class="w-5 h-5" /><span>{{ data.found_by_number }}</span></span
         >
         <span class="flex justify-start items-baseline gap-x-1"
           ><LocationIcon class="w-4 h-4" /><span>{{ data.country_of_origin }}</span></span
