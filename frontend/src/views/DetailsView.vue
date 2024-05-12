@@ -96,7 +96,7 @@ const pos = computed(() => {
   if (userData.value) {
     return {
       lat: userData.value.found_person.found_lat,
-      lng: userData.value.found_person.found_lan,
+      lng: userData.value.found_person.found_lon,
     };
   } else {
     return null;

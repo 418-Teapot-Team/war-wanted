@@ -7,5 +7,5 @@
 <script setup>
 import { ref } from 'vue';
 import { GoogleMap, Marker } from 'vue3-google-map';
-const { pos } = defineProps('pos');
+const { pos } = defineProps(['pos']);
 </script>
