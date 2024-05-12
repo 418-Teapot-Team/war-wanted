@@ -45,7 +45,7 @@ class FoundPerson(db.Model):
             "condition": self.condition,
             "appearence": self.appearence,
             "gender": self.gender,
-            "found_date": self.found_date,
+            "found_date": self.found_date.strftime("%Y-%m-%d %H:%M") if self.found_date else None,
             "specific_signs": self.specific_signs,
             "image_path": self.image_path,
         }

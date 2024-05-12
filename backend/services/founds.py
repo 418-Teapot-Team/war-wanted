@@ -57,7 +57,9 @@ def add_found_person():
     found_person.save_to_db()
 
     matches = ml_models.match_found_person(str(person_id) + ".jpg")
-    print(matches)
+    # print(matches)
+
+    # search_by_fields(found_person.to_dict())
 
     for match in matches:
         possible_match = PossibleMatch(
@@ -68,6 +70,13 @@ def add_found_person():
         possible_match.save_to_db()
 
     return jsonify(message="Successfully added found person!")
+
+
+def search_by_fields(data: dict):
+    all_in_search_persons = FoundPerson.query.all()
+    all_in_search_persons = [person.to_dict() for person in all_in_search_persons]
+    matches = ml_models.match_person_by_fields(data, all_in_search_persons)
+    return matches
 
 
 def upload_file(file, name: str):
