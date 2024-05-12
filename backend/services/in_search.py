@@ -29,6 +29,13 @@ def add_person_in_search():
     # get image by key "image" from form-data
     image = request.files.get("image")
 
+    # parse datetime from string
+    date = data.get("posted_date")
+    if date:
+        parsed_date = datetime.strptime(date, "%Y-%m-%d %H:%M")
+    else:
+        parsed_date = datetime.now()
+
     in_search_person = InSearchPerson(
         id=person_id,
         name=data.get("name"),
@@ -46,7 +53,7 @@ def add_person_in_search():
         condition=data.get("condition"),
         appearence=data.get("appearence"),
         relatives_phone=data.get("relatives_phone"),
-        posted_date=datetime.now(),
+        posted_date=parsed_date,
     )
 
     if image:
