@@ -2,6 +2,9 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { httpClient } from '@/utils/HttpClient';
+import { useToast } from 'vue-toast-notification';
+
+const $toast = useToast();
 
 // const api = import.meta.env.VITE_BASE_API;
 const api = 'http://34.107.31.175:8001/api';
@@ -21,9 +24,8 @@ export const useFoundData = defineStore('foundData', () => {
     found_lon: '49.83189875686011',
     found_lat: '24.008762581071814',
     found_by_number: '380998992929',
-      condition: 'dead',
-      age: ''
-    
+    condition: 'dead',
+    age: '',
   });
 
   const formData = new FormData();
