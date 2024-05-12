@@ -7,7 +7,7 @@
       <span class="text-xs text-gray-600">{{ data.found_date }}</span></span
     >
     <div class="flex justify-start flex-col sm:flex-row items-center w-full gap-x-4">
-      <div class="flex justify-center items-center">
+      <div class="flex justify-center items-center max-h-[214px] max-w-[214px]">
         <img
           :src="
             data?.image_path
