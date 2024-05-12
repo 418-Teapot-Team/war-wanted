@@ -18,7 +18,7 @@ export const useIndexStore = defineStore('index', () => {
   }
   async function fetchAll() {
     try {
-      const res = await httpClient.get(BASE_API + '/matches');
+      const res = await httpClient.get(BASE_API + '/matches/');
       return res.data;
     } catch (e) {
       throw new Error(e);

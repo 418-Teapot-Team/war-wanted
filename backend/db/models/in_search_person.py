@@ -51,7 +51,7 @@ class InSearchPerson(db.Model):
             "condition": self.condition,
             "appearence": self.appearence,
             "gender": self.gender,
-            "posted_date": self.posted_date,
+            "posted_date": self.posted_date.strftime("%Y-%m-%d %H:%M") if self.posted_date else None,
             "specific_signs": self.specific_signs,
             "image_path": self.image_path,
             "relatives_phone": self.relatives_phone,

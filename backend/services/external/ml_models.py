@@ -24,3 +24,22 @@ def match_found_person(found_image_name: str):
         raise Exception("Error in matching found person")
 
     return response.json()
+
+
+def match_person_by_fields(input_person: dict, all_in_search_persons: list[dict]):
+    url = "http://34.107.31.175:8002/api/post/find_similar"
+
+    # remove empty fields
+    input_person = {k: [str(v), 1] for k, v in input_person.items() if v}
+
+    for person in all_in_search_persons:
+        # remove empty fields
+        person = {k: str(v) for k, v in person.items() if v}
+
+        payload = {"search": input_person, "available": person}
+
+        print(payload)
+        response = requests.post(url, json=payload)
+
+        print("SIMILARITY:", response.text)
+        break

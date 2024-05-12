@@ -26,6 +26,9 @@ def add_found_person():
     # get image by key "image" from form-data
     image = request.files.get("image")
 
+    date = data.get("found_date")
+    parsed_date = datetime.strptime(date, "%Y-%m-%d %H:%M")
+
     person_id = uuid.uuid4()
     found_person = FoundPerson(
         id=person_id,
@@ -43,6 +46,7 @@ def add_found_person():
         found_by_number=data.get("found_by_number"),
         condition=data.get("condition"),
         appearence=data.get("appearence"),
+        found_date=parsed_date,
     )
 
     if image:
@@ -52,8 +56,12 @@ def add_found_person():
 
     found_person.save_to_db()
 
-    matches = ml_models.match_found_person(str(person_id) + ".jpg")
-    print(matches)
+    matches = []
+    if image:
+        matches = ml_models.match_found_person(str(person_id) + ".jpg")
+    # print(matches)
+
+    # search_by_fields(found_person.to_dict())
 
     for match in matches:
         possible_match = PossibleMatch(
@@ -64,6 +72,13 @@ def add_found_person():
         possible_match.save_to_db()
 
     return jsonify(message="Successfully added found person!")
+
+
+def search_by_fields(data: dict):
+    all_in_search_persons = FoundPerson.query.all()
+    all_in_search_persons = [person.to_dict() for person in all_in_search_persons]
+    matches = ml_models.match_person_by_fields(data, all_in_search_persons)
+    return matches
 
 
 def upload_file(file, name: str):
