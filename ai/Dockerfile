@@ -9,7 +9,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . /app
 
 # write cloud credentials to file
-RUN echo $CLOUD_CREDS > ai/cloud-credentials.json
+# RUN echo $CLOUD_CREDS > ai/cloud-credentials.json
 
 EXPOSE 8002
 
