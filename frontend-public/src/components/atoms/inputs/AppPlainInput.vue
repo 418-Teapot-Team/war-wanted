@@ -1,12 +1,13 @@
 <template>
-  <div class="border-b-2 border-black flex justify-end items-center">
+  <div class="border-b-2 border-gray-800 bg-transparent flex justify-between h-9">
     <input
       :name="name"
-      class="w-full bg-transparent placeholder-green placeholder-opacity-[92%]"
+      class="flex-auto w-full h-full bg-transparent focus:border-transparent focus:ring-0"
       :placeholder="label"
+      :type="type"
     />
   </div>
 </template>
 <script setup>
-defineProps(['name', 'label']);
+defineProps(['name', 'label', 'type']);
 </script>
