@@ -1,16 +1,8 @@
 <template>
-  <section
-    class="grid grid-cols-4 lg:grid-cols-5 h-full gap-9 overflow-auto lg:overflow-hidden p-2"
-  >
+  <section class="grid grid-cols-4 lg:grid-cols-5 h-full gap-9 overflow-auto lg:overflow-hidden p-2">
     <div class="col-span-4 lg:col-span-3">
       <div class="flex flex-col gap-4">
-        <div class="border-b-2 border-gray-800 bg-transparent flex justify-between h-9">
-          <input
-            type="text"
-            placeholder="Час"
-            class="flex-auto w-full h-full bg-transparent border-transparent focus:border-transparent focus:ring-0"
-          />
-        </div>
+        <AppTimeInput />
         <PlaceInput />
         <AppPhoneInput label="Ваш номер телефону" />
         <AppSelectInput v-model="state" label="Оберіть стан" dataKey="id" :options="states" />
@@ -35,10 +27,8 @@
         <AppPlainInput name="specific_signs" label="Особливі прикмети" type="text" />
 
         <div class="bg-transparent flex justify-between h-9">
-          <textarea
-            placeholder="Опис ..."
-            class="border-[2px] border-black flex-auto w-full h-[100px] bg-transparent focus:border-transparent focus:ring-0"
-          ></textarea>
+          <textarea placeholder="Опис ..."
+            class="border-[2px] border-black flex-auto w-full h-[100px] bg-transparent focus:border-transparent focus:ring-0"></textarea>
         </div>
       </div>
     </div>
@@ -56,6 +46,8 @@ import AppPlainInput from '@/components/atoms/inputs/AppPlainInput.vue';
 import AppPhoneInput from '@/components/atoms/inputs/AppPhoneInput.vue';
 import PlaceInput from '../../atoms/inputs/AppPlaceInput.vue';
 import AppPhotoInput from '@/components/atoms/inputs/AppPhotoInput.vue';
+import AppTimeInput from '@/components/atoms/inputs/AppTimeInput.vue';
+
 const add_more_info = ref(false);
 
 const toggle_more_info = () => {
@@ -76,6 +68,7 @@ const genders = ref([
   },
 ]);
 const states = ref([
+
   {
     label: 'Живий',
     id: 'alive',

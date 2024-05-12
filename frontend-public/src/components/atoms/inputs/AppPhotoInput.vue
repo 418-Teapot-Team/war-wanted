@@ -1,29 +1,26 @@
 <template>
-    <div class="bg-gray-100 p-8 shadow-md">
-        <div class=" text-center">
+    <div class="bg-gray-100 p-8 shadow-md" @dragover.prevent="dragover" @dragleave="dragleave" @drop="drop">
+        <div class="text-center">
             <div v-if="!files.length">
-                <input type="file" multiple name="file" id="fileInput"
-                    class="opacity-0 overflow-hidden absolute w-px h-px" @change="onChange" ref="file"
-                    accept=".jpg,.jpeg,.png,.webp" />
                 <label for="fileInput" class="text-xl block cursor-pointer">
                     <div v-if="isDragging">Release to drop files here.</div>
                     <div v-else>Drop files here or <u class="text-primary">click here</u> to upload.</div>
                 </label>
+                <input type="file" multiple name="file" id="fileInput"
+                    class="opacity-0 overflow-hidden absolute w-px h-px" @change="onChange" ref="file"
+                    accept=".jpg,.jpeg,.png,.webp" />
             </div>
-            <div v-if="files.length" class="flex flex-col gap-2 justify-center items-center mt-8">
+            <div v-else class="flex flex-col gap-2 justify-center items-center mt-8">
                 <div v-for="file in files" :key="file.name"
                     class="flex relative py-3 border border-black/20 rounded-md w-full h-full justify-center">
                     <div>
                         <img class="rounded bg-gray-500" :src="generateThumbnail(file)" />
-
                     </div>
                 </div>
                 <div @click="remove" class="cursor-pointer hover:stroke-primary">
                     <CloseIcon colorProp="red" class="w-8 h-8" />
                 </div>
             </div>
-
-
         </div>
     </div>
 </template>
@@ -31,9 +28,6 @@
 <script setup>
 import { ref } from 'vue';
 import CloseIcon from '@/components/icons/CloseIcon.vue';
-import AppButton from '@/components/atoms/buttons/AppButton.vue';
-
-const emit = defineEmits(['onUpload', 'closeModal']);
 
 const isDragging = ref(false);
 const files = ref([]);
@@ -71,9 +65,9 @@ function dragleave() {
 
 function drop(e) {
     e.preventDefault();
-    file.value.files = e.dataTransfer.files;
-    onChange();
     isDragging.value = false;
+    const droppedFiles = e.dataTransfer.files;
+    files.value = Array.from(droppedFiles);
 }
 
 function closeModal() {
