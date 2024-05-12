@@ -1,17 +1,29 @@
 <template>
-  <div class="border-b-2 border-black col-span-2">
-    <vue-google-autocomplete
-      id="map"
-      class="w-full h-full bg-transparent placeholder-green placeholder-opacity-[92%]"
-      placeholder="Місце"
-      v-on:placechanged="getAddressData"
-      country="ua"
+  <div>
+    <div class="border-b-2 border-black flex justify-end items-center">
+      <vue-google-autocomplete
+        id="place"
+        class="w-full bg-transparent placeholder-green placeholder-opacity-[92%]"
+        placeholder="Місце"
+        v-on:placechanged="getAddressData"
+        country="ua"
+        :value="markerData"
+      ></vue-google-autocomplete>
+      <button @click="toggleMap">
+        <img class="w-8 h-8 pb-1" src="/images/map.png" alt="" />
+      </button>
+    </div>
+
+    <GoogleMap
+      v-if="isMapOpen"
+      class="w-full h-[500px]"
+      :center="center"
+      :zoom="15"
+      @click="placeMarker"
     >
-    </vue-google-autocomplete>
+      <Marker v-if="markerPosition" :options="{ position: markerPosition }" />
+    </GoogleMap>
   </div>
-  <GoogleMap class="w-full h-[500px]" :center="center" :zoom="15">
-    <Marker :options="{ position: center }" />
-  </GoogleMap>
 </template>
 
 <script setup>
@@ -19,7 +31,23 @@ import { ref } from 'vue';
 import { GoogleMap, Marker } from 'vue3-google-map';
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
 
-const center = ref({ lat: 40.689247, lng: -74.044502 });
+const center = ref({ lat: 49.8322405, lng: 23.99730411 });
+const isMapOpen = ref(false);
+const markerPosition = ref(null);
+const markerData = ref(null);
+
+function toggleMap() {
+  isMapOpen.value = !isMapOpen.value;
+}
+
+function placeMarker(event) {
+  markerPosition.value = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+  markerData.value = `(${event.latLng.lat()}, ${event.latLng.lng()})`;
+}
+
+function getAddressData(place) {
+  markerPosition.value = `(${place.geometry.location.lat()}, ${place.geometry.location.lng()})`;
+}
 </script>
 
 <style lang="scss" scoped></style>
