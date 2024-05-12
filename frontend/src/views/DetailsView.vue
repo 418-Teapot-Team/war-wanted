@@ -15,6 +15,7 @@
       <span class="flex justify-start items-baseline gap-x-1"
         ><LocationIcon class="w-4 h-4" /><span>Avdiivka</span></span
       >
+      <FoundMap />
     </div>
     <div>
       <ul class="flex flex-col justify-start items-start gap-y-3">
@@ -24,7 +25,7 @@
         </li>
         <li class="flex flex-col justify-start gap-y-1 items-baseline">
           <span class="text-xl font-semibold">Особливі ознаки: </span>
-          <span class="pl-4"
+          <span class=""
             >Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat officia ullam totam
             consequatur quisquam eius vitae ratione numquam dolore! Soluta ex distinctio quaerat
             sint dicta eaque sit quidem cumque nesciunt.</span
@@ -65,4 +66,5 @@
 import PhoneIcon from '@/components/icons/PhoneIcon.vue';
 import LocationIcon from '@/components/icons/LocationIcon.vue';
 import Matches from '@/components/Matches.vue';
+import FoundMap from '@/components/atoms/map/FoundMap.vue';
 </script>
