@@ -1,7 +1,12 @@
 <template>
-  <div class="flex flex-col justify-center items-start">
-    <label class="text-primary-dark">Label</label>
-    <input class="bg-white border border-solid border-primary rounded-md h-8 px-2" />
+  <div class="border-b-2 border-black flex justify-end items-center">
+    <input
+      :name="name"
+      class="w-full bg-transparent placeholder-green placeholder-opacity-[92%]"
+      :placeholder="label"
+    />
   </div>
 </template>
-<script setup></script>
+<script setup>
+defineProps(['name', 'label']);
+</script>
