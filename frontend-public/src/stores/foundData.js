@@ -20,17 +20,21 @@ export const useFoundData = defineStore('foundData', () => {
     found_date: '2024-04-09 10:22',
     found_lon: '49.83189875686011',
     found_lat: '24.008762581071814',
-    found_by_number: '380998992929',
-      condition: 'dead',
-      age: ''
-    
+    found_by_number: '+380998992929',
+    condition: 'dead',
+      age: 18,
+    height: 180,
   });
 
-  const formData = new FormData();
-  formData.append('image', image);
-  formData.append('data', JSON.stringify(data));
-
   async function postFoundData() {
+    // Convert Uint8Array to Blob
+    const imageBlob = new Blob([image.value], { type: 'image/jpeg' }); // Change 'image/jpeg' to the appropriate MIME type if needed
+
+    const formData = new FormData();
+    formData.append('image', imageBlob);
+    formData.append('data', JSON.stringify(data.value));
+
+    console.log([...formData.entries()]);
     // httpClient
     //   .post(api + '/found/add', formData)
     //   .then((response) => {
@@ -49,7 +53,7 @@ export const useFoundData = defineStore('foundData', () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(response);
+          throw new Error(response.message);
         }
         return response.json();
       })
@@ -59,8 +63,6 @@ export const useFoundData = defineStore('foundData', () => {
       .catch((error) => {
         console.error('Error:', error);
       });
-
-    // console.log(api);
   }
 
   return {
