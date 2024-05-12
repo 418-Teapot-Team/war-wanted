@@ -140,4 +140,3 @@ def find_similar():
         # Compute distances
         distance += cosine(word1_embedding, word2_embedding) * search_person[keys][1]
     return jsonify(distance),200
-
