@@ -19,7 +19,7 @@ services:
       - 8001:8001
     volumes:
       - .:/app
-  ml:
+  ai:
     image: ai
     environment:
       - CLOUD_CREDS=${CLOUD_CREDS}
