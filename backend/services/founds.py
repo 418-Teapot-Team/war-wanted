@@ -5,9 +5,9 @@ from datetime import datetime
 from flask import Blueprint, request, jsonify
 from google.cloud import storage
 
-
 from config import Config
-from db.models import FoundPerson
+from db.models import FoundPerson, PossibleMatch
+from services.external import ml_models
 
 
 found_bp = Blueprint("found", __name__, url_prefix="/found")
@@ -21,7 +21,7 @@ def add_found_person():
     try:
         validate_input(data)
     except Exception as e:
-        return jsonify(error=str(e)), 400
+        return jsonify(message=str(e)), 400
 
     # get image by key "image" from form-data
     image = request.files.get("image")
@@ -51,6 +51,17 @@ def add_found_person():
         found_person.set_image(image_name)
 
     found_person.save_to_db()
+
+    matches = ml_models.match_found_person(str(person_id) + ".jpg")
+    print(matches)
+
+    for match in matches:
+        possible_match = PossibleMatch(
+            found_person_id=person_id,
+            in_search_person_id=match.get("name"),
+            match_score=match.get("distance", 0.5),
+        )
+        possible_match.save_to_db()
 
     return jsonify(message="Successfully added found person!")
 
@@ -87,9 +98,11 @@ def validate_input(data: dict):
         raise Exception("Invalid phone number format")
 
     # validate age
-    if not 0 < data.get("age", 0) <= 120:
+    age = data.get("age")
+    if age and not 0 < age <= 120:
         raise Exception("Invalid age value")
 
     # validate height
-    if not 50 <= data.get("height", 0) <= 250:
+    height = data.get("height")
+    if height and not 50 <= data.get("height", 0) <= 250:
         raise Exception("Invalid height value")

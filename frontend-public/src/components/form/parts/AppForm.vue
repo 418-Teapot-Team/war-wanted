@@ -4,13 +4,10 @@
   >
     <div class="col-span-4 lg:col-span-3">
       <div class="flex flex-col gap-4">
-        <div class="border-b-2 border-gray-800 bg-transparent flex justify-between h-9">
-          <input
-            type="text"
-            placeholder="Час"
-            class="flex-auto w-full h-full bg-transparent border-transparent focus:border-transparent focus:ring-0"
-          />
+        <div class="col-span-4 lg:col-span-2 block lg:hidden">
+          <AppPhotoInput />
         </div>
+        <AppTimeInput />
         <PlaceInput />
         <AppPhoneInput label="Ваш номер телефону" />
         <AppSelectInput v-model="state" label="Оберіть стан" dataKey="id" :options="states" />
@@ -41,8 +38,16 @@
           ></textarea>
         </div>
       </div>
+      <div class="flex justify-center mt-5">
+        <!-- TODO: захуячити переливання -->
+        <button
+          class="rounded-md bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-colors duration-300 ease-in-out"
+          @click="sendData">
+          Відправити
+        </button>
+      </div>
     </div>
-    <div class="col-span-4 lg:col-span-2">
+    <div class="col-span-4 lg:col-span-2 hidden lg:block">
       <AppPhotoInput />
     </div>
   </section>
@@ -56,14 +61,23 @@ import AppPlainInput from '@/components/atoms/inputs/AppPlainInput.vue';
 import AppPhoneInput from '@/components/atoms/inputs/AppPhoneInput.vue';
 import PlaceInput from '../../atoms/inputs/AppPlaceInput.vue';
 import AppPhotoInput from '@/components/atoms/inputs/AppPhotoInput.vue';
+import AppTimeInput from '@/components/atoms/inputs/AppTimeInput.vue';
+import { useFoundData } from '@/stores/foundData';
+
+const foundDataStore = useFoundData();
+
 const add_more_info = ref(false);
+
+const state = ref(null);
+const gender = ref(null);
+
+const sendData = () => {
+  foundDataStore.postFoundData();
+}
 
 const toggle_more_info = () => {
   add_more_info.value = !add_more_info.value;
 };
-
-const state = ref(null);
-const gender = ref(null);
 
 const genders = ref([
   {
